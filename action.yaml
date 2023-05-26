@@ -1,6 +1,6 @@
 # action.yaml
 name: "Wick Push"
-description: "Github action for pushing wick components and applications package for distribution to supported platforms such as https://registry.candle.dev"
+description: "Github action for pushing wick packages for distribution to supported platforms such as https://registry.candle.dev"
 branding:
   icon: "layers"
   color: "orange"
