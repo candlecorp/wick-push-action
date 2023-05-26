@@ -25,7 +25,6 @@ fi
 #change directory to the containing directory of wick file
 manifest_dir=$(dirname "$manifest_path")
 cd "$manifest_dir"
-echo "PWD is $(pwd)"
 
 latest_flag=""
 
@@ -33,6 +32,8 @@ if [ "$latest" = "true" ]; then
     latest_flag="--latest"
 fi
 
-echo "$(basename "$manifest_path")"
+# Store the output in a variable
+output=$(wick registry push "$(basename "$manifest_path")" $latest_flag | grep -Eo 'reference="(.*)"' | cut -d '"' -f2 | head -1)
 
-wick registry push "$(basename "$manifest_path")" $latest_flag | grep -Eo 'reference="(.*)"' | cut -d '"' -f2 | head -1
+# Print the output to the console
+echo "::set-output name=reference::$output"
