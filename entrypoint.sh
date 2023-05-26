@@ -33,7 +33,8 @@ if [ "$latest" = "true" ]; then
 fi
 
 # Store the output in a variable
-output=$(wick registry push "$(basename "$manifest_path")" $latest_flag 2>&1 | grep -Eo 'reference="(.*)"' | cut -d '"' -f2 | head -1)
+output=$(wick registry push "$(basename "$manifest_path")" $latest_flag 2>&1)
+#| grep -Eo 'reference="(.*)"' | cut -d '"' -f2 | head -1
 
 echo $output
 
