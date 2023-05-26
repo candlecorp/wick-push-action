@@ -32,11 +32,9 @@ if [ "$latest" = "true" ]; then
     latest_flag="--latest"
 fi
 
-wick registry push "$(basename "$manifest_path")" $latest_flag | grep -Eo 'reference="(\S*)"' | cut -d '"' -f2 | head -1
+# Store the output in a variable
+output=$(wick registry push "$(basename "$manifest_path")" $latest_flag | grep 'reference' | grep -E '"(\S*)"' | cut -d '"' -f2 | head -1)
+echo $output
 
-# # Store the output in a variable
-# output=$()
-# echo $output
-
-# # Write the output to the GITHUB_OUTPUT environment file
-# echo "reference=$output" >> "$GITHUB_OUTPUT"
+# Write the output to the GITHUB_OUTPUT environment file
+echo "reference=$output" >> "$GITHUB_OUTPUT"
