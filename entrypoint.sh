@@ -33,7 +33,9 @@ if [ "$latest" = "true" ]; then
 fi
 
 # Store the output in a variable
-output=$(wick registry push "$(basename "$manifest_path")" $latest_flag | grep -Eo 'reference="(.*)"' | cut -d '"' -f2 | head -1)
+output=$(wick registry push "$(basename "$manifest_path")" $latest_flag > grep -Eo 'reference="(.*)"' | cut -d '"' -f2 | head -1)
 
-# Print the output to the console
-echo "::set-output name=reference::$output"
+echo $output
+
+# Write the output to the GITHUB_OUTPUT environment file
+echo "reference=$output" >> "$GITHUB_OUTPUT"
