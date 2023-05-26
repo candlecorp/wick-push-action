@@ -15,3 +15,5 @@ jobs:
           latest: "true"
           username: ${{ secrets.CANDLE_REGISTRY_USERNAME }}
           password: ${{ secrets.CANDLE_REGISTRY_PASSWORD }}
+      - name: Print push output
+        run: 'echo "Push output: ${{ steps.push.outputs.reference }}"'
