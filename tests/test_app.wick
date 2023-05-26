@@ -1,0 +1,29 @@
+---
+kind: wick/component@v1
+name: github_action_test
+metadata:
+  description: Test application for wick 
+  version: 0.0.1
+  authors:
+    - "Wick Maintainers"
+  vendors:
+    - "Candle Corporation"
+  licenses:
+    - Apache-2.0
+package:
+  registry:
+    registry: registry.candle.dev
+    namespace: wick-push-action
+component:
+  kind: wick/component/wasmrs@v1
+  ref: build/rand.signed.wasm
+  operations:
+    - name: int
+      inputs:
+        - name: min
+          type: u32
+        - name: max
+          type: u32
+      outputs:
+        - name: output
+          type: u32

@@ -1,0 +1,32 @@
+# action.yaml
+name: "Wick Push"
+description: "Github action for pushing wick components and applications package for distribution to supported platforms such as https://registry.candle.dev"
+branding:
+  icon: "layers"
+  color: "orange"
+inputs:
+  path:
+    description: "Path to the main wick manifest file.  Usually the file name is `app.wick` or `component.wick`.  This must contain the registry configuration details in the `package` section."
+    required: true
+    default: "app.wick"
+  latest:
+    description: "If set to true, the image will have a second tag of latest appended in addition to the version tag"
+    required: true
+    default: "true"
+  username:
+    description: "Username for registry configured in the Wick manifest"
+    required: true
+  password:
+    description: "Password for registry configured in the Wick manifest"
+    required: true
+outputs:
+  reference:
+    description: "The image reference that was pushed"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.path }}
+    - ${{ inputs.latest }}
+    - ${{ inputs.username }}
+    - ${{ inputs.password }}
