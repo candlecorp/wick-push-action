@@ -33,6 +33,6 @@ if [ "$latest" = "true" ]; then
     latest_flag="--latest"
 fi
 
-echo "$(basename "$bus_path")"
+echo "$(basename "$manifest_path")"
 
-wick registry push "$(basename "$bus_path")" $latest_flag | grep -Eo 'reference="(.*)"' | cut -d '"' -f2 | head -1
+wick registry push "$(basename "$manifest_path")" $latest_flag | grep -Eo 'reference="(.*)"' | cut -d '"' -f2 | head -1
