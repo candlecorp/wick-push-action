@@ -9,16 +9,15 @@ inputs:
     description: "Path to the main wick manifest file.  Usually the file name is `app.wick` or `component.wick`.  This must contain the registry configuration details in the `package` section."
     required: true
     default: "app.wick"
-  latest:
-    description: "If set to true, the image will have a second tag of latest appended in addition to the version tag"
-    required: true
-    default: "true"
   username:
     description: "Username for registry configured in the Wick manifest"
     required: true
   password:
     description: "Password for registry configured in the Wick manifest"
     required: true
+  tags:
+    description: "Space-separated list of additional tags to apply to the image. This is optional as push will always set the tag to the version in the manifest."
+    required: false
 outputs:
   reference:
     description: "The image reference that was pushed"
@@ -27,6 +26,6 @@ runs:
   image: "Dockerfile"
   args:
     - ${{ inputs.path }}
-    - ${{ inputs.latest }}
     - ${{ inputs.username }}
     - ${{ inputs.password }}
+    - ${{ inputs.tags }}

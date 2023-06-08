@@ -12,8 +12,8 @@ jobs:
         id: push
         with:
           path: ./tests/test_app.wick
-          latest: "true"
           username: ${{ secrets.CANDLE_REGISTRY_USERNAME }}
           password: ${{ secrets.CANDLE_REGISTRY_PASSWORD }}
+          tags: latest abc123 123456
       - name: Print push output
         run: 'echo "Push output: ${{ steps.push.outputs.reference }}"'
