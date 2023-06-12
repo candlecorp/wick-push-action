@@ -31,14 +31,6 @@ If you are using Candle registry: When you create your account, you can look at 
 
 **Default:** `app.wick`
 
-### `latest`
-
-**Description:** Add `latest` tag along with the version tag from Wick manifest.
-
-**Required:** true
-
-**Default:** `true`
-
 ### `username`
 
 **Description:** Username for registry
@@ -50,6 +42,12 @@ If you are using Candle registry: When you create your account, you can look at 
 **Description:** Password for registry
 
 **Required:** true
+
+### `tags`
+
+**Description:** space separated list of tags to add to the package in addition to the version. ex: `latest 123456`
+
+**Required:** false
 
 ## Outputs
 
