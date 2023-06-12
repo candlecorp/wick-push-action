@@ -16,9 +16,9 @@ If you are using Candle registry: When you create your account, you can look at 
   uses: candlecorp/wick-push-action@v1
   with:
     path: "app.wick"
-    latest: "true"
     username: ${{ secrets.REGISTRY_USERNAME }}
     password: ${{ secrets.REGISTRY_PASSWORD }}
+    tags: latest
 ```
 
 ## Inputs
