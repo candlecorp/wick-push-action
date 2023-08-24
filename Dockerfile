@@ -1,4 +1,4 @@
-FROM ghcr.io/candlecorp/wick:latest
+FROM ghcr.io/candlecorp/wick:0.12.0
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
