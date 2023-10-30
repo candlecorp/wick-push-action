@@ -38,8 +38,8 @@ output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>error.lo
 
 # Check the exit status of the wick command
 if [[ $? -ne 0 ]]; then
-  echo "Error: wick command failed with output:"
-  cat error.log
+  echo "Error: wick command failed with output:" >&2
+  cat error.log >&2
   exit 1
 fi
 
