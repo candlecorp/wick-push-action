@@ -38,8 +38,9 @@ output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
 
 # Check the exit status of the wick command
 if [[ $? -ne 0 ]]; then
-  # The wick command failed. Print the error output in GitHub Actions format.
-  echo "::error file=$manifest_path::wick command failed with output: $output"
+  # The wick command failed. Extract the last line of the error output.
+  last_line=$(echo "$output" | awk '/Failed to push the package:/ {line=$0} END {print line}')
+  echo "::error file=$manifest_path::wick command failed with output: $last_line"
   exit 1
 fi
 
