@@ -40,7 +40,7 @@ output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
 if [[ $? -ne 0 ]]; then
   # The wick command failed. Extract the last line of the error output.
   last_line=$(echo "$output" | awk '/Failed to push the package:/ {line=$0} END {print line}')
-  echo "::error file=$manifest_path::wick command failed with output: $last_line"
+  echo "::error::wick command failed with output: $last_line"
   exit 1
 fi
 
@@ -50,4 +50,4 @@ processed_output=$(echo "$output" | grep 'reference' | grep -E '"(\S*)"' | cut -
 echo $processed_output
 
 # Write the processed output to the GITHUB_OUTPUT environment file
-echo "reference=$processed_output" >> "$GITHUB_OUTPUT"
+echo "::notice::reference=$processed_output" >> "$GITHUB_OUTPUT"
