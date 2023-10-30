@@ -34,7 +34,7 @@ do
 done
 
 # Store the output in a variable
-output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1
+output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
 echo $output
 
 # Write the output to the GITHUB_OUTPUT environment file
