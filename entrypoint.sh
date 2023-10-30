@@ -33,8 +33,15 @@ do
     tag_flags="$tag_flags --tag=$tag"
 done
 
-# Store the output in a variable and capture both stdout and stderr
-output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
+# Store the output in a variable
+output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1
+echo $output
+
+# Write the output to the GITHUB_OUTPUT environment file
+echo "reference=$output" >> "$GITHUB_OUTPUT"
+
+# # Store the output in a variable and capture both stdout and stderr
+# output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
 
 # # Check the exit status of the wick command
 # if [[ $? -ne 0 ]]; then
@@ -45,9 +52,9 @@ output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
 # fi
 
 
-# Process the output with your sequence of commands
-processed_output=$(echo "$output" | grep 'reference' | grep -E '"(\S*)"' | cut -d '"' -f2 | head -1)
-echo $processed_output
+# # Process the output with your sequence of commands
+# processed_output=$(echo "$output" | grep 'reference' | grep -E '"(\S*)"' | cut -d '"' -f2 | head -1)
+# echo $processed_output
 
-# Write the processed output to the GITHUB_OUTPUT environment file
-echo "::notice::reference=$processed_output" >> "$GITHUB_OUTPUT"
+# # Write the processed output to the GITHUB_OUTPUT environment file
+# echo "::notice::reference=$processed_output" >> "$GITHUB_OUTPUT"
