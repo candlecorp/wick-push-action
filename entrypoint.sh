@@ -8,7 +8,7 @@ registry_password="$3"
 IFS=' ' read -r -a tags <<< "$4"
 
 if [ -z "$manifest_path" ] || [ -z "$registry_username" ] || [ -z "$registry_password" ]; then
-  echo "Error: missing or empty input variables"
+  echo "::error::Error: missing or empty input variables"
   exit 1
 fi
 
@@ -18,7 +18,7 @@ export OCI_PASSWORD="$registry_password"
 cd /github/workspace
 
 if [ ! -f "$manifest_path" ]; then
-  echo "Error: wick file not found at $manifest_path"
+  echo "::error::Error: wick file not found at $manifest_path"
   exit 1
 fi
 
@@ -36,13 +36,13 @@ done
 # Store the output in a variable and capture both stdout and stderr
 output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
 
-# Check the exit status of the wick command
-if [[ $? -ne 0 ]]; then
-  # The wick command failed. Extract the last line of the error output.
-  last_line=$(echo "$output" | awk '/Failed to push the package:/ {line=$0} END {print line}')
-  echo "::error::wick command failed with output: $last_line"
-  exit 1
-fi
+# # Check the exit status of the wick command
+# if [[ $? -ne 0 ]]; then
+#   # The wick command failed. Extract the last line of the error output.
+#   last_line=$(echo "$output" | awk '/Failed to push the package:/ {line=$0} END {print line}')
+#   echo "::error::wick command failed with output: $last_line"
+#   exit 1
+# fi
 
 
 # Process the output with your sequence of commands
