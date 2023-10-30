@@ -34,14 +34,15 @@ do
 done
 
 # Store the output in a variable and capture both stdout and stderr
-output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>error.log)
+output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
 
 # Check the exit status of the wick command
 if [[ $? -ne 0 ]]; then
-  echo "Error: wick command failed with output:" >&2
-  cat error.log >&2
+  # The wick command failed. Print the error output in GitHub Actions format.
+  echo "::error file=$manifest_path::wick command failed with output: $output"
   exit 1
 fi
+
 
 # Process the output with your sequence of commands
 processed_output=$(echo "$output" | grep 'reference' | grep -E '"(\S*)"' | cut -d '"' -f2 | head -1)
