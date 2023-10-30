@@ -33,25 +33,9 @@ do
     tag_flags="$tag_flags --tag=$tag"
 done
 
-# # Store the output in a variable
-# output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1 | grep 'reference' | grep -E '"(\S*)"' | cut -d '"' -f2 | head -1)
-# echo $output
+# Store the output in a variable
+output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1 | grep 'reference' | grep -E '"(\S*)"' | cut -d '"' -f2 | head -1)
+echo $output
 
-# # Write the output to the GITHUB_OUTPUT environment file
-# echo "reference=$output" >> "$GITHUB_OUTPUT"
-
-# Store the output in a variable and capture both stdout and stderr
-output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
-exit_status=$?
-
-if [[ $exit_status -ne 0 ]]; then
-    # If there's an error, execute this grep command:
-    error_output=$(echo "$output" | grep 'Failed to push the package:')
-    echo "::error file=$manifest_path::wick command failed with output: $error_output" >> "$GITHUB_OUTPUT"
-    exit 1
-else
-    # If there's no error, execute this grep command:
-    success_output=$(echo "$output" | grep 'reference' | grep -E '"(\S*)"' | cut -d '"' -f2 | head -1)
-    echo $success_output
-    echo "reference=$success_output" >> "$GITHUB_OUTPUT"
-fi
+# Write the output to the GITHUB_OUTPUT environment file
+echo "reference=$output" >> "$GITHUB_OUTPUT"
