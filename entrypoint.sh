@@ -33,15 +33,13 @@ do
     tag_flags="$tag_flags --tag=$tag"
 done
 
-# Store the output in a variable
 # Store the output in a variable and capture both stdout and stderr
-output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>&1)
+output=$(wick registry push "$(basename "$manifest_path")" $tag_flags 2>error.log)
 
 # Check the exit status of the wick command
 if [[ $? -ne 0 ]]; then
-  # The wick command failed. Print the error output and exit.
   echo "Error: wick command failed with output:"
-  echo "$output"
+  cat error.log
   exit 1
 fi
 
